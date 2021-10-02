@@ -10,7 +10,13 @@ interface ILoginProps {
 const LoginForm: React.FC<ILoginProps> = ({onSubmit}) => {
 
     return (
-        <Card sx={{minWidth: 275, width: 340}} style={{marginTop: '30vh'}}>
+        <Card sx={{
+            minWidth: 275,
+            width: {
+                xs: '100%',
+                sm: 340
+            }
+        }} style={{marginTop: '30vh'}}>
             <CardContent>
                 <Typography variant="h5" component="div" align={"center"}>
                     LOGIN
@@ -33,10 +39,23 @@ const LoginForm: React.FC<ILoginProps> = ({onSubmit}) => {
                     margin={"normal"}
                 />
             </CardContent>
-            <CardActions style={{display: "flex", alignItems: 'center'}}>
+            <CardActions sx={{
+                display: "flex",
+                flexDirection: {
+                    xs: "column",
+                    sm: "row"
+                }
+            }}>
                 <Button
                     size={"medium"}
-                    variant={"text"}
+                    variant={"outlined"}
+                    color={"success"}
+                    sx={{
+                        width: {
+                            xs: "100%",
+                            sm: 'auto'
+                        }
+                    }}
                 >LOGIN</Button>
                 <Typography>or <Link to={Routes.REGISTER}>register now</Link></Typography>
             </CardActions>

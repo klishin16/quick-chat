@@ -2,11 +2,11 @@ import React from 'react';
 import './App.css';
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
-import {createTheme} from "@material-ui/core";
+import {createTheme, responsiveFontSizes, Typography} from "@material-ui/core";
 import {ThemeProvider} from "@emotion/react";
 
 
-const theme = createTheme({
+let theme = createTheme({
     typography: {
         fontFamily: [
             'Montserrat',
@@ -17,6 +17,8 @@ const theme = createTheme({
         ].join(',')
     }
 })
+theme = responsiveFontSizes(theme)
+
 
 function App() {
 
@@ -25,6 +27,7 @@ function App() {
     <ThemeProvider theme={theme}>
         <BrowserRouter>
             {/*<Navbar />*/}
+
             <AppRouter />
         </BrowserRouter>
     </ThemeProvider>
