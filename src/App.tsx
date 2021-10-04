@@ -2,10 +2,11 @@ import React from 'react';
 import './App.css';
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
-import {createTheme, responsiveFontSizes} from "@material-ui/core";
 import {ThemeProvider} from "@emotion/react";
 import "firebase/firestore";
 import "firebase/auth"
+import {createTheme, responsiveFontSizes} from "@mui/material";
+import AppLoader from "./components/AppLoader";
 
 
 let theme = createTheme({
@@ -25,12 +26,12 @@ theme = responsiveFontSizes(theme)
 
 
 function App() {
-
+    // console.log(process.env.)
 
     return (
         <ThemeProvider theme={theme}>
             <BrowserRouter>
-                {/*<Navbar />*/}
+                <AppLoader />
                 <AppRouter/>
             </BrowserRouter>
 

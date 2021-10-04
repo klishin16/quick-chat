@@ -1,10 +1,15 @@
-import {AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar, Typography} from '@material-ui/core';
-import MenuIcon from "@material-ui/icons/Menu"
-import React from 'react';
-import {AccountCircle} from "@material-ui/icons";
+import React, {useContext} from 'react';
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import {AuthContext} from "../context/AuthContext";
+import {AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
+import {AuthService} from "../services/AuthService";
 
+
+export const NAVBAR_HEIGHT = 65
 
 const Navbar = () => {
+    const user = useContext(AuthContext)
+
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -15,22 +20,21 @@ const Navbar = () => {
         setAnchorEl(null);
     };
 
+    const logout = async () => {
+        await AuthService.logout()
+    }
+
+
     return (
             <Box sx={{flexGrow: 1}}>
 
                 <AppBar position="static" color={"secondary"}>
                     <Toolbar>
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                            sx={{mr: 2}}
-                        >
-                            <MenuIcon/>
-                        </IconButton>
                         <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-                            News
+                            QUICK CHAT
+                        </Typography>
+                        <Typography variant="h5" component="div">
+                            {user?.email}
                         </Typography>
                         <div>
                             <IconButton
@@ -60,7 +64,7 @@ const Navbar = () => {
                             >
                                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                                <MenuItem onClick={logout}>Logout</MenuItem>
                             </Menu>
                         </div>
                     </Toolbar>

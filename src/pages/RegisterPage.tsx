@@ -1,13 +1,13 @@
 import React from 'react';
-import LoginForm from "../components/forms/LoginForm";
+import RegisterForm from "../components/forms/RegisterForm";
 import {Container} from "@mui/material";
 
-const LoginPage = () => {
+const RegisterPage = () => {
     return (
         <Container style={{display: 'flex', justifyContent: 'center'}}>
-            <LoginForm />
+            <RegisterForm />
         </Container>
     );
 };
 
-export default LoginPage;
+export default RegisterPage;
