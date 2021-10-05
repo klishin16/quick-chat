@@ -1,6 +1,8 @@
 import React from 'react';
 import RegisterForm from "../components/forms/RegisterForm";
-import {Container} from "@mui/material";
+import {Container} from "@mui/material/index";
+
+
 
 const RegisterPage = () => {
     return (

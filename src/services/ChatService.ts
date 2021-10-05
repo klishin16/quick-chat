@@ -6,6 +6,9 @@ import {IChatCreateDTO, IChatUpdateDTO} from "../models/IChat";
 export class ChatService {
     static COLLECTION_PATH = '/chats'
     static getAllChats() {
+        return firestore.collection(this.COLLECTION_PATH).get()
+    }
+    static getUserChats(userId: string) {
         return firestore.collection(this.COLLECTION_PATH)
     }
     static create(chat: IChatCreateDTO) {

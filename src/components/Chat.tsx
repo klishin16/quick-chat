@@ -1,11 +1,13 @@
 import React, {FormEvent, useContext, useState} from 'react';
-import {Box, Button, Divider, Grid, List, TextField, Typography} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import Message from "./Message";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import firebase from "firebase/compat";
 import {firestore} from "../index";
 import {AuthContext} from "../context/AuthContext";
+import {Box, Button, Divider, Grid, List, TextField, Typography} from "@mui/material";
+import ChatHeader from "./ChatHeader";
+
 
 const Chat: React.FC = () => {
     const user = useContext(AuthContext)
@@ -37,11 +39,10 @@ const Chat: React.FC = () => {
             height: '100%'
         }}>
 
-            <Grid container p={2} sx={{boxSizing: "border-box", width: '100%'}} flexDirection={"column"}>
-                <Typography variant={"h4"}>Chat name</Typography>
-                <Typography variant={"subtitle1"}>Chat description with some useful information</Typography>
-            </Grid>
-            <Divider />
+            <ChatHeader
+                title={"Chat name"}
+                description={"Chat description with some useful information"}/>
+
             <List sx={{
                 overflowY: 'auto',
                 height: '63vh'
@@ -50,7 +51,7 @@ const Chat: React.FC = () => {
                     <Message key={index} message={message}/>
                 )}
             </List>
-            <Divider />
+            <Divider/>
             <form onSubmit={handleSubmit}>
                 <Grid container px={1} py={3}>
                     <Box mr={1} sx={{flexGrow: 1}}>
@@ -69,7 +70,7 @@ const Chat: React.FC = () => {
                         variant={"outlined"}
                         color={"secondary"}
                         size={"small"}
-                        endIcon={<SendIcon />}
+                        endIcon={<SendIcon/>}
                         onClick={sendMessage}
                     >Send</Button>
                 </Grid>

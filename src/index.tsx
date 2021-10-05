@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import firebase from "firebase/compat";
-import {AuthProvider} from "./provider/AuthProvider";
 
 const {
     REACT_APP_FIREBASE_API_KEY,
@@ -38,9 +37,7 @@ export const firestore = firebase.firestore()
 
 ReactDOM.render(
     <React.StrictMode>
-            <AuthProvider>
-                <App/>
-            </AuthProvider>
+        <App/>
     </React.StrictMode>,
     document.getElementById('root')
 );

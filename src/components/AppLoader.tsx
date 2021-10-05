@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
-import {Backdrop, CircularProgress} from "@mui/material";
 import {AuthContext} from "../context/AuthContext";
+import {Backdrop, CircularProgress} from "@mui/material";
 
 const AppLoader = () => {
     const user = useContext(AuthContext)

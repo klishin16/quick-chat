@@ -1,11 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Routes} from "../../routers";
-import {Button, Card, CardActions, CardContent, TextField, Typography} from "@mui/material";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {auth} from "../../index";
 import {useRequest} from "../../hooks/useRequest";
 import {AuthService} from "../../services/AuthService";
+import {Button, Card, CardActions, CardContent, TextField, Typography} from "@mui/material";
 
 
 interface IFormInputs {
@@ -19,9 +18,7 @@ const RegisterForm: React.FC = () => {
     const {handleSubmit, control} = useForm()
 
     const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-        requestWrapper(() => AuthService.registerWithCredentials(data),
-            () => console.log('Successfully registered with local credentials!')
-        )
+        requestWrapper(() => AuthService.registerWithCredentials(data), () => console.log('Successfully registered with local credentials!'))
     }
 
 

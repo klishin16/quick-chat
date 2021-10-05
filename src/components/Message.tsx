@@ -1,6 +1,6 @@
 import React from 'react';
-import {Avatar, Grid, ListItem, Paper, Typography} from "@mui/material";
 import {IMessage} from "../models/IMessage";
+import {Avatar, Grid, ListItem, Paper, Typography} from "@mui/material";
 
 interface IMessageViewProps {
     message: IMessage

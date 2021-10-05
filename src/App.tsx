@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
-import {ThemeProvider} from "@emotion/react";
 import "firebase/firestore";
 import "firebase/auth"
-import {createTheme, responsiveFontSizes} from "@mui/material";
 import AppLoader from "./components/AppLoader";
+import {AuthProvider} from "./provider/AuthProvider";
+import AppNavbar from "./components/AppNavbar";
+import AppChatsDrawer from "./components/AppChatsDrawer";
+import {Button, createTheme, responsiveFontSizes, ThemeProvider} from "@mui/material/index";
+import {ChatDrawerProvider} from "./context/ChatDrawerContext";
+
+
 
 
 let theme = createTheme({
@@ -24,18 +29,20 @@ theme = responsiveFontSizes(theme)
 
 
 
-
 function App() {
-    // console.log(process.env.)
 
     return (
-        <ThemeProvider theme={theme}>
-            <BrowserRouter>
-                <AppLoader />
-                <AppRouter/>
-            </BrowserRouter>
-
-        </ThemeProvider>
+            <AuthProvider>
+                <ThemeProvider theme={theme}>
+                    <ChatDrawerProvider>
+                        <AppNavbar />
+                        <AppLoader/>
+                        <BrowserRouter>
+                            <AppRouter/>
+                        </BrowserRouter>
+                    </ChatDrawerProvider>
+                </ThemeProvider>
+            </AuthProvider>
     );
 }
 

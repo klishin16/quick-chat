@@ -3,10 +3,10 @@ import {Link} from 'react-router-dom';
 import {Routes} from "../../routers";
 import 'firebase/firestore'
 import 'firebase/auth'
-import {Button, Card, CardActions, CardContent, TextField, Typography} from "@mui/material";
 import {AuthService} from "../../services/AuthService";
 import {useRequest} from "../../hooks/useRequest";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
+import {Button, Card, CardActions, CardContent, TextField, Typography} from "@mui/material";
 
 
 interface IFormInputs {
@@ -19,9 +19,7 @@ const LoginForm: React.FC = () => {
     const {handleSubmit, control} = useForm()
 
     const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-        requestWrapper(() => AuthService.signInWithEmailAndPassword(data.email, data.password),
-            () => console.log('Successfully registered with local credentials!')
-        )
+        requestWrapper(() => AuthService.signInWithEmailAndPassword(data.email, data.password), () => console.log('Successfully registered with local credentials!'))
     }
 
     const googleLoginHandler = async () => {
