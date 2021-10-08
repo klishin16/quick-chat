@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {Routes} from "../../routers";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useRequest} from "../../hooks/useRequest";
-import {AuthService} from "../../services/AuthService";
+import AuthService from "../../services/AuthService";
 import {Button, Card, CardActions, CardContent, TextField, Typography} from "@mui/material";
 
 
@@ -31,7 +31,7 @@ const RegisterForm: React.FC = () => {
                     xs: '100%',
                     sm: 340
                 }
-            }} style={{marginTop: '30vh'}}>
+            }} style={{marginTop: '21vh'}}>
                 <CardContent>
                     <Typography variant="h5" component="div" align={"center"} style={{marginBottom: '2vh'}}>
                         REGISTRATION

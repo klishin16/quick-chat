@@ -1,13 +1,14 @@
 import {FunctionComponent} from "react";
-import Chat from "./components/Chat";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import ChatPage from "./pages/ChatPage";
+import MainPage from "./pages/MainPage";
+import ProfileContainer from "./containers/ProfileContainer";
 
 export enum Routes {
     LOGIN = '/login',
     REGISTER = '/register',
-    CHAT = '/chat',
+    CHAT = '/',
+    PROFILE = '/profile',
 }
 
 interface IRoute {
@@ -29,6 +30,6 @@ export const publicRoutes: IRoute[] = [
 export const privateRoutes: IRoute[] = [
     {
         path: Routes.CHAT,
-        component: ChatPage
+        component: MainPage
     }
 ]

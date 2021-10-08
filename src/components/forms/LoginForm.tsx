@@ -3,10 +3,10 @@ import {Link} from 'react-router-dom';
 import {Routes} from "../../routers";
 import 'firebase/firestore'
 import 'firebase/auth'
-import {AuthService} from "../../services/AuthService";
 import {useRequest} from "../../hooks/useRequest";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {Button, Card, CardActions, CardContent, TextField, Typography} from "@mui/material";
+import AuthService from "../../services/AuthService";
 
 
 interface IFormInputs {
@@ -19,7 +19,7 @@ const LoginForm: React.FC = () => {
     const {handleSubmit, control} = useForm()
 
     const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-        requestWrapper(() => AuthService.signInWithEmailAndPassword(data.email, data.password), () => console.log('Successfully registered with local credentials!'))
+        requestWrapper(() => AuthService.signInWithEmailAndPassword(data), () => console.log('Successfully registered with local credentials!'))
     }
 
     const googleLoginHandler = async () => {
@@ -31,7 +31,7 @@ const LoginForm: React.FC = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Card sx={{
-                marginTop: '30vh',
+                marginTop: '21vh',
                 minWidth: 275,
                 width: {
                     xs: '100%',
@@ -66,7 +66,7 @@ const LoginForm: React.FC = () => {
                                 variant="standard"
                                 size={"small"}
                                 error={!!error || !!requestError} //TODO
-                                helperText={error ? error.message : requestError} // TODO
+                                helperText={error ? error.message : requestError?.toString()} // TODO
                                 fullWidth
                                 style={{marginBottom: '1vh'}}
                             />

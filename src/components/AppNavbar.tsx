@@ -1,11 +1,13 @@
 import React, {useContext} from 'react';
-import {AuthContext} from "../context/AuthContext";
-import {AuthService} from "../services/AuthService";
+import {AuthContext} from "../contexts/AuthContext";
+import AuthService from "../services/AuthService";
 import {AppBar, createStyles, IconButton, Menu, MenuItem, Slide, Theme, Toolbar, Typography} from "@mui/material/index";
 import {makeStyles} from "@mui/styles";
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle'
-import {ChatDrawerActionsEnum, useChatDrawer} from "../context/ChatDrawerContext";
+import {ChatDrawerActionsEnum, useChatDrawer} from "../contexts/ChatDrawerContext";
+import { Link } from 'react-router-dom';
+import {Routes} from "../routers";
 
 
 export const NAVBAR_HEIGHT = 65;
@@ -35,7 +37,7 @@ interface IAppBarProps {
 
 }
 const AppNavbar: React.FC<IAppBarProps> = () => {
-    const user = useContext(AuthContext)
+    const {user, isAuthenticated} = useContext(AuthContext)
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const {state, dispatch} = useChatDrawer()
     const {isFixed, isOpen} = state
@@ -58,8 +60,9 @@ const AppNavbar: React.FC<IAppBarProps> = () => {
         dispatch({type: ChatDrawerActionsEnum.TOGGLE_OPEN, payload: !isOpen})
     }
 
+
     return (
-        <Slide in={!!user} direction='down' >
+        <Slide in={isAuthenticated} direction='down' >
             <AppBar position={'static'} color={"secondary"}>
                 <Toolbar>
                     <IconButton size="large" edge="start" color="inherit" aria-label="menu"
@@ -105,7 +108,9 @@ const AppNavbar: React.FC<IAppBarProps> = () => {
                             open={Boolean(anchorEl)}
                             onClose={closeHandler}
                         >
-                            <MenuItem onClick={closeHandler}>Profile</MenuItem>
+                            <MenuItem onClick={closeHandler}>
+                                <Link to={Routes.PROFILE}>Profile</Link>
+                            </MenuItem>
                             <MenuItem onClick={closeHandler}>My account</MenuItem>
                             <MenuItem onClick={logoutHandler}>Logout</MenuItem>
                         </Menu>

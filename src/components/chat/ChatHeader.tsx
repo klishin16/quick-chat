@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Accordion, AccordionDetails, AccordionSummary, Divider, Grid, Typography, useTheme} from "@mui/material/index";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import useWindowDimensions from "../hooks/useWindowDimensions";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 
 interface IChatHeaderProps {

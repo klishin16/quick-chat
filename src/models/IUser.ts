@@ -1,9 +1,16 @@
 export interface IUser {
-    uid: string
-    email: string | null
+    id: string
+    email: string
     name: string | null
-    authProvider: "google" | "local"
-
+    photoURL: string | null
+    authProvider: "google" | "local" | "test"
+    uid: string
 }
 
-export type IUserCreateDTO = IUser
+export interface IUserCreateDTO {
+    email: string | null
+    name: string | null
+    photoURL: string | null
+    authProvider: "google" | "local" | "test"
+    uid: string
+}

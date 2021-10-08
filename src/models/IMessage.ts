@@ -8,3 +8,12 @@ export interface IMessage {
     text: string,
     createdAt: firebase.firestore.FieldValue
 }
+
+export interface IMessageCreateDTO {
+    uid: string | undefined;
+    displayName: string;
+    photoUrl: string;
+    text: string;
+    createdAt: firebase.firestore.FieldValue
+}
+

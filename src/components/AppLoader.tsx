@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {AuthContext} from "../context/AuthContext";
+import {AuthContext} from "../contexts/AuthContext";
 import {Backdrop, CircularProgress} from "@mui/material";
 
 const AppLoader = () => {
