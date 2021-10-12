@@ -1,7 +1,8 @@
 import React from 'react';
 import {IMessage} from "../../models/IMessage";
-import {Avatar, Grid, ListItem, Paper, Typography} from "@mui/material";
+import {Avatar, Box, Grid, ListItem, Paper, Typography} from "@mui/material";
 import {IUser} from "../../models/IUser";
+import {useTheme} from "@mui/material/index";
 
 interface IMessageViewProps {
     message: IMessage;
@@ -9,13 +10,18 @@ interface IMessageViewProps {
 }
 
 const Message: React.FC<IMessageViewProps> = ({message, currentUser}) => {
+
+
+    const theme = useTheme()
     return (
         <ListItem sx={{
             justifyContent: message.uid === currentUser.uid ? 'flex-end' : 'flex-start'
         }}>
             <Paper variant={"outlined"} sx={{
                 width: 'max-content',
-                borderRadius: 3
+                borderRadius: 2,
+                background: theme.palette.myBackground.card,
+                // borderColor: theme.palette.primary.main
             }}>
                 <Grid
                     container

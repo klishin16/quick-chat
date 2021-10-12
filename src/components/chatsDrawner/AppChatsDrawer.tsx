@@ -15,7 +15,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import {ChatDrawerActionsEnum, useChatDrawer} from "../../contexts/ChatDrawerContext";
-import {Box, Typography} from "@mui/material/index";
+import {Box, Typography, useTheme} from "@mui/material/index";
 import {AuthContext} from "../../contexts/AuthContext";
 import {UserChatService} from "../../services/UserChatService";
 import ChatsList from './ChatsList'
@@ -25,6 +25,9 @@ import {NotificationContext, NotificationType} from "../../contexts/Notification
 import {IChat} from "../../models/IChat";
 import {IUser} from "../../models/IUser";
 import ChatDrawerContainer from "../../containers/ChatDrawerContainer";
+import { useHistory } from 'react-router-dom';
+import {Routes} from "../../routers";
+import {ListAltOutlined} from "@mui/icons-material";
 
 export const CHATS_DRAWER_WIDTH = 240;
 
@@ -35,6 +38,7 @@ interface IDrawerProps {
 }
 
 const AppChatsDrawer: React.FC<IDrawerProps> = ({chatCreationModalFormHandler, setChatHandler}) => {
+    const history = useHistory();
     const {user} = useContext(AuthContext)
     const userId = useRef(user!.id)
     const [userChats, userChatsLoading] = useCollectionData(UserChatService.getUserChats(userId.current), {idField: 'id'})
@@ -49,10 +53,11 @@ const AppChatsDrawer: React.FC<IDrawerProps> = ({chatCreationModalFormHandler, s
     }
     const selectChatHandler = (chat: IChat) => {
         setChatHandler(chat)
+        history.push(Routes.CHAT)
     }
 
 
-
+    const theme = useTheme()
     return (
         <ChatDrawerContainer>
             <nav aria-label="main mailbox folders">
@@ -62,7 +67,9 @@ const AppChatsDrawer: React.FC<IDrawerProps> = ({chatCreationModalFormHandler, s
                             <ListItemIcon>
                                 <AddIcon/>
                             </ListItemIcon>
-                            <ListItemText primary="CREATE CHAT"/>
+                            <ListItemText>
+                                <Typography color={theme.palette.text.primary}>CREATE CHAT</Typography>
+                            </ListItemText>
                         </ListItemButton>
                     </ListItem>
                 </List>
@@ -77,7 +84,7 @@ const AppChatsDrawer: React.FC<IDrawerProps> = ({chatCreationModalFormHandler, s
                         <>
                             <IconButton onClick={() => removeChatHandler(user!, chat)}><CloseIcon/></IconButton>
                             <ListItemButton onClick={() => selectChatHandler(chat)}>
-                                <Typography>{chat.title}</Typography>
+                                <Typography variant={"body1"} color={theme.palette.text.primary}>{chat.title}</Typography>
                             </ListItemButton>
                         </>
                     )}
@@ -92,7 +99,9 @@ const AppChatsDrawer: React.FC<IDrawerProps> = ({chatCreationModalFormHandler, s
                     renderListItem={chat => (
                         <>
                             <IconButton onClick={() => addChatHandler(user!, chat)}><AddIcon/></IconButton>
-                            <ListItemText>{chat.title}</ListItemText>
+                            <ListItemButton>
+                                <Typography variant={"body1"} color={theme.palette.text.primary}>{chat.title}</Typography>
+                            </ListItemButton>
                         </>
                     )}
                 />

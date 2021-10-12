@@ -9,15 +9,15 @@ const AppRouter = () => {
 
     return isAuthenticated ?  (
         <Switch>
-            {privateRoutes.map(({path, component}, index) =>
-                <Route key={index} path={path} component={component} exact={true} />
+            {privateRoutes.map(({path, component, exact}, index) =>
+                <Route key={index} path={path} component={component} exact={exact} />
             )}
             <Redirect to={Routes.CHAT} />
         </Switch>
     ): (
         <Switch>
-            {publicRoutes.map(({path, component}, index) =>
-                <Route key={index} path={path} component={component} exact={true} />
+            {publicRoutes.map(({path, component, exact}, index) =>
+                <Route key={index} path={path} component={component} exact={exact} />
             )}
             <Redirect to={Routes.LOGIN} />
         </Switch>

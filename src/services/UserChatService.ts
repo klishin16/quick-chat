@@ -37,4 +37,13 @@ export class UserChatService {
     static getChatUsers(chatId: string) {
         return ChatService.getChat(chatId).collection(UserChatService.CHAT_REFER_PATH)
     }
+
+    static removeChatFromUsersSubCollections(chat: IChat) {
+        return firestore.collectionGroup(UserChatService.USER_REFER_PATH).where("id", '==', chat.id).get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    doc.ref.delete()
+                });
+            })
+    }
 }

@@ -1,46 +1,39 @@
 import React, {useContext} from 'react';
 import {AuthContext} from "../contexts/AuthContext";
 import AuthService from "../services/AuthService";
-import {AppBar, createStyles, IconButton, Menu, MenuItem, Slide, Theme, Toolbar, Typography} from "@mui/material/index";
+import {
+    AppBar,
+    createStyles,
+    IconButton,
+    Menu,
+    MenuItem,
+    Slide,
+    Theme,
+    Toolbar,
+    Typography,
+    useTheme
+} from "@mui/material/index";
 import {makeStyles} from "@mui/styles";
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import {ChatDrawerActionsEnum, useChatDrawer} from "../contexts/ChatDrawerContext";
-import { Link } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {Routes} from "../routers";
 
 
 export const NAVBAR_HEIGHT = 65;
 
 
-const useStyles = makeStyles(({palette, spacing}: Theme) => createStyles({
-        root: {
-            flexGrow: 1
-        },
-        menuButton: {
-            marginRight: spacing(2)
-        },
-        title: {
-            flexGrow: 1,
-        },
-        drawer: {
-            width: 300,
-        },
-        fullList: {
-            width: 'auto',
-        }
-    })
-)
-
-
 interface IAppBarProps {
 
 }
+
+
 const AppNavbar: React.FC<IAppBarProps> = () => {
     const {user, isAuthenticated} = useContext(AuthContext)
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const {state, dispatch} = useChatDrawer()
-    const {isFixed, isOpen} = state
+    const {isOpen} = state
 
 
     const menuToggleHandler = (event: React.MouseEvent<HTMLElement>) => {
@@ -61,9 +54,11 @@ const AppNavbar: React.FC<IAppBarProps> = () => {
     }
 
 
+    const theme = useTheme()
+    const history = useHistory()
     return (
         <Slide in={isAuthenticated} direction='down' >
-            <AppBar position={'static'} color={"secondary"}>
+            <AppBar position={'static'} sx={{background: theme.palette.myBackground.card}}>
                 <Toolbar>
                     <IconButton size="large" edge="start" color="inherit" aria-label="menu"
                         onClick={chatDrawerToggleHandler}
@@ -76,10 +71,10 @@ const AppNavbar: React.FC<IAppBarProps> = () => {
                                 }}>
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                    <Typography variant="h6" component="div" sx={{flexGrow: 1}} color={theme.palette.primary.main}>
                         QUICK CHAT
                     </Typography>
-                    <Typography sx={{display: {xs: 'none', sm: 'block'}}} variant="h5" component="div">
+                    <Typography sx={{display: {xs: 'none', sm: 'block'}}} variant="h5" component="div" color={theme.palette.text.primary}>
                         {user?.email}
                     </Typography>
                     <div>
@@ -89,7 +84,7 @@ const AppNavbar: React.FC<IAppBarProps> = () => {
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={menuToggleHandler}
-                            color="inherit"
+                            color={"info"}
                         >
                             <AccountCircle/>
                         </IconButton>
@@ -108,10 +103,12 @@ const AppNavbar: React.FC<IAppBarProps> = () => {
                             open={Boolean(anchorEl)}
                             onClose={closeHandler}
                         >
-                            <MenuItem onClick={closeHandler}>
-                                <Link to={Routes.PROFILE}>Profile</Link>
+                            <MenuItem onClick={() => {
+                                closeHandler()
+                                history.push(Routes.PROFILE)
+                            }}>
+                                Profile & Settings
                             </MenuItem>
-                            <MenuItem onClick={closeHandler}>My account</MenuItem>
                             <MenuItem onClick={logoutHandler}>Logout</MenuItem>
                         </Menu>
                     </div>

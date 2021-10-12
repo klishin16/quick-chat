@@ -8,6 +8,23 @@ import ChatHeader from "./ChatHeader";
 import {IChat} from "../../models/IChat";
 import MessageService from "../../services/MessageService";
 import {IUser} from "../../models/IUser";
+import {Typography, useTheme} from "@mui/material/index";
+import {IMessage} from "../../models/IMessage";
+import {withConfirmation} from "../HOC/withСonfirmation";
+import {UserChatService} from "../../services/UserChatService";
+import {ChatService} from "../../services/ChatService";
+
+
+// interface IHeaderActions {
+//     chat: IChat;
+//     user: IUser;
+// }
+interface IRemoveActionProps {
+    onClick: React.MouseEventHandler
+}
+const RemoveAction: React.FC<IRemoveActionProps> = ({onClick}) => (
+    <Button onClick={onClick} variant={"outlined"} color={"error"}>Удалить</Button>
+)
 
 
 interface IChatProps {
@@ -50,7 +67,13 @@ const Chat: React.FC<IChatProps> = ({chat}) => {
         };
     }, [messages]);
 
+    const removeChatHandler = () => {
+        console.log('Remove handler!')
+        UserChatService.removeChatFromUsersSubCollections(chat).then(r => ChatService.delete(chat.id))
+    }
+    const RemoveActionWithConfirm = withConfirmation(RemoveAction, 'Remove chat?', () => removeChatHandler())
 
+    const theme = useTheme()
     return (
         <Box sx={{
             width: '100%',
@@ -59,11 +82,15 @@ const Chat: React.FC<IChatProps> = ({chat}) => {
 
             <ChatHeader
                 title={chat.title}
-                description={chat.description}/>
+                description={chat.description}
+                chatHeaderActions={user?.uid === chat.ownerUid ? () => <RemoveActionWithConfirm /> : undefined}
+            />
 
             <List sx={{
                 overflowY: 'auto',
-                height: '63vh'
+                height: '63vh',
+                boxSizing: "border-box",
+
             }}>
                 {messages && messages.map((message, index) =>
                     <Message key={index} message={message} currentUser={user!}/>

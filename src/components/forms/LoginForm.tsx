@@ -7,6 +7,7 @@ import {useRequest} from "../../hooks/useRequest";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {Button, Card, CardActions, CardContent, TextField, Typography} from "@mui/material";
 import AuthService from "../../services/AuthService";
+import {useTheme} from "@mui/material/index";
 
 
 interface IFormInputs {
@@ -28,6 +29,7 @@ const LoginForm: React.FC = () => {
     }
 
 
+    const theme = useTheme()
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Card sx={{
@@ -36,7 +38,9 @@ const LoginForm: React.FC = () => {
                 width: {
                     xs: '100%',
                     sm: 340
-                }
+                },
+                padding: 2,
+                background: theme.palette.myBackground.card
             }}>
                 <CardContent sx={{padding: 2}}>
                     <Typography variant="h5" component="div" align={"center"} style={{marginBottom: '2vh'}}>

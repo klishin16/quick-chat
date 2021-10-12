@@ -1,13 +1,22 @@
 import React from 'react';
 import LoginForm from "../components/forms/LoginForm";
-import {Container} from "@mui/material/index";
+import {Container, useTheme} from "@mui/material/index";
+import {Box} from "@mui/material";
+
 
 
 const LoginPage = () => {
+    const theme = useTheme()
+
     return (
-        <Container style={{display: 'flex', justifyContent: 'center'}}>
+        <Box sx={{
+            height: '100vh',
+            display: 'flex',
+            justifyContent: 'center',
+            background: theme.palette.background.default
+        }}>
             <LoginForm />
-        </Container>
+        </Box>
     );
 };
 

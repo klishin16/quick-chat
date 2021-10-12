@@ -2,7 +2,7 @@ import React from 'react';
 import {ChatDrawerActionsEnum, useChatDrawer} from "../contexts/ChatDrawerContext";
 import {Box, Divider, Drawer, IconButton, styled} from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import {Typography} from "@mui/material/index";
+import {Typography, useTheme} from "@mui/material/index";
 
 
 const DrawerHeader = styled('div')(({theme}) => ({
@@ -22,10 +22,16 @@ const ChatDrawerContainer: React.FC = ({children}) =>{
         dispatch({type: ChatDrawerActionsEnum.TOGGLE_OPEN, payload: false})
     }
 
+    const theme = useTheme()
+
     return isFixed ? (
         <Box sx={{
+            boxSizing: "border-box",
             height: '100%',
-            boxShadow: 1
+            boxShadow: 1,
+            background: theme.palette.myBackground.card,
+            borderTop: 1,
+            borderColor: theme.palette.divider
         }}>
             {children}
         </Box>

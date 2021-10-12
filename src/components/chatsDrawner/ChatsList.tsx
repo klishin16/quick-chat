@@ -1,6 +1,7 @@
 import {IChat} from "../../models/IChat";
 import React from "react";
 import {Box, List, ListItem, ListItemText, ListSubheader, Skeleton} from "@mui/material";
+import {useTheme} from "@mui/material/index";
 
 interface IChatListProps {
     chatListTitle: string
@@ -17,6 +18,8 @@ const ChatsList: React.FC<IChatListProps> = (
         renderListItem = (chat) => <ListItemText>{chat.title}</ListItemText>
     }) => {
 
+    const theme = useTheme()
+
     if (loading) return (
         <Box p={1}>
             <Skeleton/>
@@ -24,10 +27,9 @@ const ChatsList: React.FC<IChatListProps> = (
             <Skeleton/>
         </Box>
     )
-
     return (
-        <List subheader={
-            <ListSubheader component="div">
+        <List dense subheader={
+            <ListSubheader color={"primary"} sx={{background: theme.palette.myBackground.card}} component="div">
                 {chatListTitle}
             </ListSubheader>
         }>
